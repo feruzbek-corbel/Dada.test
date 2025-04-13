@@ -1,1 +1,53 @@
 #dada.test
+from tkinter import *
+from tkinter import messagebox
+from PIL import Image, ImageTk
+
+# Oyna yaratish
+oyna = Tk()
+oyna.title("Dad Test")
+oyna.geometry("400x500")
+oyna.configure(bg="#f5f5f5")
+
+# Logotip
+try:
+    img = Image.open("logo.png")
+    img = img.resize((100, 100))
+    img = ImageTk.PhotoImage(img)
+    Label(oyna, image=img, bg="#f5f5f5").pack(pady=10)
+except:
+    Label(oyna, text="Logotip topilmadi", font=("Arial", 12), bg="#f5f5f5").pack(pady=10)
+
+Label(oyna, text="Dadam uchun test", font=("Arial", 18, "bold"), bg="#f5f5f5").pack()
+
+# Savollar va javoblar
+savollar = [
+    ("Tinch okeaniga kim nom bergan?", "Ferdinand Magellan"),
+    ("SSSR nechanchi yil parchalanadi?", "1991"),
+    ("Amerika prezidenti kim?", "Joe Biden"),
+    ("O‘zbekiston nechanchi yilda mustaqillikka erishgan?", "1991"),
+    ("SSSR tarkibida necha davlat bo‘lgan?", "15"),
+    ("Bill Gates kim?", "Microsoft asoschisi"),
+    ("SSSR qachon paydo bo‘lgan?", "1922"),
+    ("6 mart qanday kun?", "Ota tug‘ilgan kuni"),
+    ("1 sentabr qanday kun?", "Mustaqillik kuni"),
+    ("London shahri nechanchi yilda yonib ketgan?", "1666")
+]
+
+javoblar = []
+def tugatish():
+    togri = 0
+    for i, (savol, javob) in enumerate(savollar):
+        if javoblar[i].get().strip().lower() == javob.lower():
+            togri += 1
+    messagebox.showinfo("Natija", f"Siz {togri} ta togri javob berdingiz!\nTabriklayman, Dad!")
+
+for savol in savollar:
+    Label(oyna, text=savol[0], font=("Arial", 12), bg="#f5f5f5").pack(pady=5)
+    javob = Entry(oyna)
+    javob.pack(pady=5)
+    javoblar.append(javob)
+
+Button(oyna, text="Testni Tugatish", command=tugatish, bg="#4CAF50", fg="white", font=("Arial", 12, "bold")).pack(pady=20)
+
+oyna.mainloop()
